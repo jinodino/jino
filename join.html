@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous">
+
+    </script>
+</head>
+<style>
+    body {
+        width: 800px;
+        margin: auto;
+    }
+</style>
+<script>
+    function ajax() {
+        var xmlReqObj = new XMLHttpRequest();
+        var idObj = document.getElementById('id');
+        var pwObj = document.getElementById('pw');
+        var url = 'join.php?id=' + idObj.value + '&pw=' + pwObj.value;
+        xmlReqObj.onreadystatechange = function () {
+            if (xmlReqObj.readyState == 4 && xmlReqObj.status == 200) {
+                idObj.value = xmlReqObj.response;
+                var ii = idObj.value;
+                switch (ii){
+                    case "1":
+                        alert("회원가입이 완료 되었습니다.로그인 하십시오");
+                        location.assign('board.php');
+                        break;
+                    case "2":
+                        alert("이미 있는 사용자 입니다");
+                        break;
+                }
+            }
+        };
+
+        xmlReqObj.open("GET", url, true);
+        xmlReqObj.send();
+    }
+</script>
+<body>
+<center>
+    <table class='table table-striped'>
+        <tr>
+          <td class='active' align='center'>
+              <h1>회원가입</h1>
+          </td>
+        </tr>
+    </table>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="id" class="col-sm-5 control-label">ID</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="id" placeholder="ID" name = 'id'>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pw" class="col-sm-5 control-label">Password</label>
+            <div class="col-sm-3">
+                <input type="password" class="form-control" id="pw" placeholder="Password" name = 'pw'>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-4">
+                <button type="button" class="btn btn-default" onclick="ajax()">회원가입</button>
+            </div>
+        </div>
+    </form>
+</center>
+</body>
+</html>
